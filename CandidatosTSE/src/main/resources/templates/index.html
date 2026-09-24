@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <title>Candidatos TSE</title>
+</head>
+
+<body>
+
+<main>
+
+    <h1>Lista de Candidatos</h1>
+
+    <form th:action="@{/candidatos}" method="get">
+
+        <input
+            type="text"
+            name="texto"
+            placeholder="Nome ou número"
+            th:value="${texto}"
+        >
+
+        <select name="cargo">
+            <option value="">Todos os cargos</option>
+
+            <option
+                th:each="cargo : ${cargos}"
+                th:value="${cargo}"
+                th:text="${cargo}"
+                th:selected="${cargo == cargoSelecionado}">
+            </option>
+        </select>
+
+        <select name="partido">
+            <option value="">Todos os partidos</option>
+
+            <option
+                th:each="partido : ${partidos}"
+                th:value="${partido}"
+                th:text="${partido}"
+                th:selected="${partido == partidoSelecionado}">
+            </option>
+        </select>
+
+        <button type="submit">Filtrar</button>
+
+        <a th:href="@{/candidatos}">
+            <button type="button">Limpar</button>
+        </a>
+
+    </form>
+
+
+    <div class="lista">
+
+        <div class="card" th:each="candidato : ${candidatos}">
+
+            <h2 th:text="${candidato.nomeCandidato}">
+                Nome do candidato
+            </h2>
+
+            <p>
+                Nome de urna:
+                <span th:text="${candidato.nomeUrna}">
+                    Nome de urna
+                </span>
+            </p>
+
+            <p>
+                Número:
+                <span th:text="${candidato.nrCandidato}">
+                    Número
+                </span>
+            </p>
+
+            <p>
+                Cargo:
+                <span th:text="${candidato.cargo}">
+                    Cargo
+                </span>
+            </p>
+
+            <p>
+                Partido:
+                <span th:text="${candidato.siglaPartido}">
+                    Partido
+                </span>
+            </p>
+
+            <p>
+                Município:
+                <span th:text="${candidato.municipio}">
+                    Município
+                </span>
+            </p>
+
+            <p>
+                Situação:
+                <span th:text="${candidato.situacaoCandidatura}">
+                    Situação
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
